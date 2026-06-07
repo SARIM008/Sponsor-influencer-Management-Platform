@@ -1,0 +1,51 @@
+{% extends 'layout.html' %}
+
+{% block title %}Manage Requests{% endblock %}
+
+{% block content %}
+    <!-- Include the correct navbar based on user role -->
+    {% if user.role == 'sponsor' %}
+        {% include 'navbar_sponsor.html' %}
+    {% else %}
+        {% include 'navbar_influencer.html' %}
+    {% endif %}
+
+    <div class="container my-4">
+        <h1 class="text-center mb-4">Manage Requests</h1>
+        
+        {% if requests %}
+            <div class="row">
+                {% for request in requests %}
+                    <div class="col-md-4 mb-4">
+                        <div class="card card-custom shadow-sm">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ request.campaign.name }}</h5>
+                                <p class="card-text">
+                                    <strong>Requester:</strong> 
+                                    {% if request.request_type == 'Sponsor' %}
+                                        Sponsor: {{ request.sponsor_username }}
+                                    {% else %}
+                                        Influencer: {{ request.influencer.name }}
+                                    {% endif %}
+                                </p>
+                                <p class="card-text"><strong>Message:</strong> {{ request.message }}</p>
+                                <p class="card-text"><strong>Status:</strong> {{ request.status }}</p>
+                                
+                                {% if (user.role == 'sponsor' and request.request_type == 'Influencer') or (user.role == 'influencer' and request.request_type == 'Sponsor') %}
+                                    <form method="POST" action="{{ url_for('accept_request', request_id=request.id) }}" class="d-inline">
+                                        <button type="submit" class="btn btn-success">Accept</button>
+                                    </form>
+                                    <form method="POST" action="{{ url_for('reject_request', request_id=request.id) }}" class="d-inline">
+                                        <button type="submit" class="btn btn-danger">Reject</button>
+                                    </form>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p class="text-center">No pending requests.</p>
+        {% endif %}
+    </div>
+{% endblock %}

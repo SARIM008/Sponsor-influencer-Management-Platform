@@ -1,0 +1,76 @@
+{% extends 'layout.html' %}
+
+{% block title %}Available Campaigns{% endblock %}
+
+{% block content %}
+    {% include 'navbar_influencer.html' %}
+    <div style="padding: 20px;">
+        <h1 style="text-align: center; color: #333;">Available Campaigns</h1>
+        
+        <form method="GET" action="{{ url_for('inf_campaign') }}" style="margin-bottom: 20px;">
+            <div style="display: flex; justify-content: center; gap: 10px;">
+                <input type="text" name="category" placeholder="Category" value="{{ request.args.get('category', '') }}" style="padding: 10px; border-radius: 4px; border: 1px solid #ccc; width: 200px;">
+                <input type="text" name="products" placeholder="Products" value="{{ request.args.get('products', '') }}" style="padding: 10px; border-radius: 4px; border: 1px solid #ccc; width: 200px;">
+                <button type="submit" style="
+                    background-color: #007bff;
+                    color: #fff;
+                    padding: 10px 20px;
+                    border: none;
+                    border-radius: 5px;
+                    cursor: pointer;
+                    font-size: 16px;
+                ">Search</button>
+                <button type="submit" name="show_all" value="1" style="
+                    background-color: #6c757d;
+                    color: #fff;
+                    padding: 10px 20px;
+                    border: none;
+                    border-radius: 5px;
+                    cursor: pointer;
+                    font-size: 16px;
+                ">Show All</button>
+            </div>
+        </form>
+
+        {% if campaigns %}
+            <div style="display: flex; flex-wrap: wrap; justify-content: center;">
+                {% for campaign in campaigns %}
+                    <div style="
+                        border: 1px solid #ddd;
+                        border-radius: 8px;
+                        padding: 20px;
+                        margin: 15px;
+                        width: 300px;
+                        background-color: #f9f9f9;
+                        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+                        transition: transform 0.3s, box-shadow 0.3s;
+                    ">
+                        <h2 style="font-size: 1.5em; color: #007bff; margin-bottom: 10px;">{{ campaign.name }}</h2>
+                        <p style="margin-bottom: 10px;"><strong>Description:</strong> {{ campaign.des }}</p>
+                        <p style="margin-bottom: 10px;"><strong>Category:</strong> {{ campaign.category }}</p>
+                        <p style="margin-bottom: 10px;"><strong>Budget:</strong> ₹{{ campaign.budget }}</p>
+                        <p style="margin-bottom: 10px;"><strong>Status:</strong> {{ campaign.status }}</p>
+                        <p style="margin-bottom: 10px;"><strong>Start Date:</strong> {{ campaign.s_date.strftime('%Y-%m-%d') }}</p>
+                        <p style="margin-bottom: 10px;"><strong>End Date:</strong> {{ campaign.e_date.strftime('%Y-%m-%d') }}</p>
+                        <p style="margin-bottom: 20px;"><strong>Goal:</strong> {{ campaign.goal }}</p>
+                        <form method="POST" action="{{ url_for('send_influencer_request', campaign_id=campaign.id) }}" style="text-align: center;">
+                            <input type="hidden" name="sponsor_username" value="{{ campaign.sponsor_username }}">
+                            <textarea name="message" placeholder="Your message" style="width: 100%; margin-bottom: 10px; padding: 10px; border-radius: 4px; border: 1px solid #ccc;"></textarea>
+                            <button type="submit" style="
+                                background-color: #28a745;
+                                color: #fff;
+                                padding: 10px 20px;
+                                border: none;
+                                border-radius: 5px;
+                                cursor: pointer;
+                                font-size: 16px;
+                            ">Request</button>
+                        </form>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p style="text-align: center; color: #666;">No campaigns available at the moment.</p>
+        {% endif %}
+    </div>
+{% endblock %}

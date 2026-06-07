@@ -1,0 +1,32 @@
+{% extends 'layout.html' %}
+
+{% block title %}Delete Campaign{% endblock %}
+
+{% block content %}
+    {% include 'navbar_sponsor.html' %}
+    <div style="padding: 20px;">
+        <h1 style="text-align: center; color: #333;">Delete Campaign</h1>
+        <p style="text-align: center;">Are you sure you want to delete the campaign <strong>{{ campaign.name }}</strong>?</p>
+        <form method="POST" action="{{ url_for('delete_campaign', campaign_id=campaign.id) }}" style="text-align: center;">
+            <button type="submit" style="
+                background-color: #dc3545;
+                color: #fff;
+                padding: 10px 20px;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                font-size: 16px;
+            ">Delete</button>
+            <a href="{{ url_for('my_campaigns') }}" style="
+                display: inline-block;
+                margin-left: 15px;
+                padding: 10px 20px;
+                background-color: #007bff;
+                color: #fff;
+                border-radius: 5px;
+                text-decoration: none;
+                font-size: 16px;
+            ">Cancel</a>
+        </form>
+    </div>
+{% endblock %}

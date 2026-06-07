@@ -1,0 +1,106 @@
+{% extends 'layout.html' %}
+
+{% block title %}Influencer Dashboard{% endblock %}
+
+{% block content %}
+{% include "navbar_influencer.html" %}
+
+<div class="container mt-4">
+    <div class="card shadow-lg p-4">
+        <div class="d-flex align-items-center">
+            <div>
+                <h2 class="card-title">{{ influencer.name }}</h2>
+                <h4 class="text-muted">{{ influencer.handle }}</h4>
+                <p><strong>Platform:</strong> {{ influencer.platform }}</p>
+                <p><strong>Reach:</strong> {{ influencer.follower }}</p>
+                <p><strong>Niche:</strong> {{ influencer.niche }}</p>
+                <p><strong>Earnings:</strong> ₹{{ influencer.earning }}</p>
+            </div>
+        </div>
+
+        <div class="mt-4">
+            <h3 class="mb-4">Accepted Campaigns</h3>
+            {% if accepted_campaigns %}
+                <div class="row">
+                    {% for campaign in accepted_campaigns %}
+                        <div class="col-md-6 mb-4">
+                            <div class="card border-primary shadow-sm">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ campaign.name }}</h5>
+                                    <p class="card-text"><strong>Description:</strong> {{ campaign.des }}</p>
+                                    <p class="card-text"><strong>Budget:</strong> ₹{{ campaign.budget }}</p>
+                                    <p class="card-text"><strong>Start Date:</strong> {{ campaign.s_date.strftime('%d %B %Y') }}</p>
+                                    <p class="card-text"><strong>End Date:</strong> {{ campaign.e_date.strftime('%d %B %Y') }}</p>
+                                    <form method="POST" action="{{ url_for('complete_campaign', request_id=requests[campaign.id].id, campaign_id=campaign.id) }}" class="mt-3">
+                                        <button type="submit" class="btn btn-success">Complete</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="alert alert-info" role="alert">
+                    No accepted campaigns.
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="mt-4">
+            <h3 class="mb-4">Requested Campaigns</h3>
+            {% if requested_campaigns %}
+                <div class="row">
+                    {% for campaign in requested_campaigns %}
+                        <div class="col-md-6 mb-4">
+                            <div class="card border-secondary shadow-sm">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ campaign.name }}</h5>
+                                    <p class="card-text"><strong>Description:</strong> {{ campaign.des }}</p>
+                                    <p class="card-text"><strong>Budget:</strong> ₹{{ campaign.budget }}</p>
+                
+                                    <p class="card-text"><strong>Start Date:</strong> {{ campaign.s_date.strftime('%d %B %Y') }}</p>
+                                    <p class="card-text"><strong>End Date:</strong> {{ campaign.e_date.strftime('%d %B %Y') }}</p>
+                                    <form method="POST" action="{{ url_for('delete_request1', request_id=requests[campaign.id].id) }}" class="mt-3">
+                                        <button type="submit" class="btn btn-danger">Delete Request</button>
+                                    </form>
+                                    <button type="button" class="btn btn-secondary mt-2" data-bs-toggle="modal" data-bs-target="#editRequestModal{{ requests[campaign.id].id }}">
+                                        Edit Message
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Edit Request Modal -->
+                        <div class="modal fade" id="editRequestModal{{ requests[campaign.id].id }}" tabindex="-1" aria-labelledby="editRequestModalLabel{{ requests[campaign.id].id }}" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="editRequestModalLabel{{ requests[campaign.id].id }}">Edit Request Message</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <form method="POST" action="{{ url_for('edit_request1', request_id=requests[campaign.id].id) }}">
+                                        <div class="modal-body">
+                                            <div class="mb-3">
+                                                <label for="message{{ requests[campaign.id].id }}" class="form-label">Message</label>
+                                                <textarea class="form-control" id="message{{ requests[campaign.id].id }}" name="message" rows="3">{{ requests[campaign.id].message }}</textarea>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                            <button type="submit" class="btn btn-primary">Save changes</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="alert alert-info" role="alert">
+                    No requested campaigns.
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

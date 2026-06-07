@@ -1,0 +1,53 @@
+{% extends 'layout.html' %}
+
+{% block title %}Create Campaign{% endblock %}
+
+{% block content %}
+    {% include 'navbar_sponsor.html' %}
+    <div class="container mt-4">
+        <h1>Create Campaign</h1>
+        <form action="{{ url_for('campaigns') }}" method="POST">
+            <div class="mb-3">
+                <label for="name" class="form-label">Campaign Name</label>
+                <input type="text" id="name" name="name" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label for="des" class="form-label">Description</label>
+                <input type="text" id="des" name="des" class="form-control">
+            </div>
+            <div class="mb-3">
+                <label for="category" class="form-label">Category</label>
+                <input type="text" id="category" name="category" class="form-control">
+            </div>
+            <div class="mb-3">
+                <label for="budget" class="form-label">Budget</label>
+                <input type="number" id="budget" name="budget" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label for="products" class="form-label">Product</label>
+                <input type="text" id="products" name="product" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label for="s_date" class="form-label">Start Date</label>
+                <input type="date" id="s_date" name="s_date" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label for="e_date" class="form-label">End Date</label>
+                <input type="date" id="e_date" name="e_date" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label for="goal" class="form-label">Goal</label>
+                <input type="text" id="goal" name="goal" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label for="visibility" class="form-label">Visibility</label>
+                <select id="visibility" name="visibility" class="form-control" required>
+                    <option value="" disabled selected>Select visibility</option>
+                    <option value="public">Public</option>
+                    <option value="private">Private</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Create Campaign</button>
+        </form>
+    </div>
+{% endblock %}

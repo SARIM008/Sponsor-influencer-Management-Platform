@@ -1,0 +1,62 @@
+{% extends 'layout.html' %}
+
+{% block title %}My Campaigns{% endblock %}
+
+{% block content %}
+    {% include 'navbar_sponsor.html' %}
+    <div style="padding: 20px;">
+        <h1 style="text-align: center; color: #333;">My Campaigns</h1>
+
+        {% if campaigns %}
+            <div style="display: flex; flex-wrap: wrap; justify-content: center;">
+                {% for campaign in campaigns %}
+                    <div style="
+                        border: 1px solid #ddd;
+                        border-radius: 8px;
+                        padding: 20px;
+                        margin: 15px;
+                        width: 300px;
+                        background-color: #f9f9f9;
+                        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+                        transition: transform 0.3s, box-shadow 0.3s;
+                    ">
+                        <h2 style="font-size: 1.5em; color: #007bff; margin-bottom: 10px;">{{ campaign.name }}</h2>
+                        <p style="margin-bottom: 10px;"><strong>Description:</strong> {{ campaign.des }}</p>
+                        <p style="margin-bottom: 10px;"><strong>Category:</strong> {{ campaign.category }}</p>
+                        <p style="margin-bottom: 10px;"><strong>Budget:</strong> ₹{{ campaign.budget }}</p>
+                        <p style="margin-bottom: 10px;"><strong>Status:</strong> {{ campaign.status }}</p>
+                        <p style="margin-bottom: 10px;"><strong>Visibility:</strong> {{ campaign.visibility }}</p>
+                        <p style="margin-bottom: 10px;"><strong>Start Date:</strong> {{ campaign.s_date.strftime('%Y-%m-%d') }}</p>
+                        <p style="margin-bottom: 10px;"><strong>End Date:</strong> {{ campaign.e_date.strftime('%Y-%m-%d') }}</p>
+                        <p style="margin-bottom: 20px;"><strong>Goal:</strong> {{ campaign.goal }}</p>
+                        
+                        <a href="{{ url_for('update_campaign', campaign_id=campaign.id) }}" style="
+                            display: inline-block;
+                            padding: 10px 15px;
+                            margin-right: 10px;
+                            background-color: #28a745;
+                            color: #fff;
+                            border-radius: 5px;
+                            text-decoration: none;
+                            font-weight: bold;
+                        ">Edit</a>
+
+                        <form method="POST" action="{{ url_for('delete_campaign', campaign_id=campaign.id) }}" style="display:inline;">
+                            <button type="submit" style="
+                                background-color: #dc3545;
+                                color: #fff;
+                                border: none;
+                                padding: 10px 15px;
+                                border-radius: 5px;
+                                cursor: pointer;
+                                font-weight: bold;
+                            ">Delete</button>
+                        </form>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p style="text-align: center; color: #666;">No campaigns found.</p>
+        {% endif %}
+    </div>
+{% endblock %}

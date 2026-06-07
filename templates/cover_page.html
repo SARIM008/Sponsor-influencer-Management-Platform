@@ -1,0 +1,89 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Welcome to MADCONNECT
+{% endblock %}
+
+{% block styles %}
+<style>
+  
+    body {
+        background-color: #f0f2f5;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        font-family: Arial, sans-serif;
+    }
+
+    
+    .cover-container {
+        text-align: center;
+        background-color: #ffffff;
+        padding: 2.5rem;
+        border-radius: 15px;
+        box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2);
+        max-width: 500px;
+    }
+
+    
+    h1 {
+        font-size: 3rem;
+        color: #007bff;
+        margin-bottom: 1.5rem;
+    }
+
+    
+    p {
+        font-size: 1.25rem;
+        color: #555;
+        margin-bottom: 2rem;
+    }
+
+    
+    .btn-cover {
+        margin: 0.5rem;
+        padding: 0.75rem 1.5rem;
+        font-size: 1.2rem;
+        border-radius: 50px;
+        border: none;
+        color: white;
+        text-decoration: none;
+        transition: transform 0.2s, background-color 0.2s;
+        display: inline-block;
+    }
+
+    /* Login button styling */
+    .btn-cover-login {
+        background-color: #007bff;
+    }
+
+    /* Registration button styling */
+    .btn-cover-register {
+        background-color: #28a745;
+    }
+
+    /* Hover effects for the login button */
+    .btn-cover-login:hover {
+        background-color: #0056b3;
+        transform: scale(1.05);
+    }
+
+    
+    .btn-cover-register:hover {
+        background-color: #218838;
+        transform: scale(1.05);
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="cover-container">
+    <h1>Welcome to MADCONNECT</h1>
+    <p>Your gateway to connecting influencers and sponsors</p>
+    <a href="{{ url_for('login') }}" class="btn btn-cover btn-cover-login">Login</a>
+    <a href="{{ url_for('influencer_registration') }}" class="btn btn-cover btn-cover-register">Influencer Registration</a>
+    <a href="{{ url_for('sponsor_registration') }}" class="btn btn-cover btn-cover-register">Sponsor Registration</a>
+</div>
+{% endblock %}

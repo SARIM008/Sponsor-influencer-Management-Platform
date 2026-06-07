@@ -1,0 +1,46 @@
+{% extends 'layout.html' %}
+
+{% block title %}Influencer Registration{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="card mx-auto shadow-lg" style="max-width: 500px; border-radius: 10px;">
+        <div class="card-body">
+            <h2 class="card-title text-center mb-4">Influencer Registration</h2>
+            <form action="/influencer_registration.html" method="POST">
+                <div class="form-floating mb-3">
+                    <input type="text" id="name" name="name" class="form-control" placeholder="Name" required>
+                    <label for="name">Name</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="text" id="username" name="username" class="form-control" placeholder="Username" required>
+                    <label for="username">Username</label>
+                </div>
+                <div class="form-floating mb-4">
+                    <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
+                    <label for="password">Password</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="text" id="social_media_handle" name="social_media_handle" class="form-control" placeholder="Social Media Handle" required>
+                    <label for="social_media_handle">Social Media Handle</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="text" id="platform" name="platform" class="form-control" placeholder="Platform" required>
+                    <label for="platform">Platform</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="number" id="followers" name="followers" class="form-control" placeholder="Followers" required>
+                    <label for="followers">Followers</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="text" id="niche" name="niche" class="form-control" placeholder="Niche" required>
+                    <label for="Niche">Niche</label>
+                </div>
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary btn-lg">Register</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

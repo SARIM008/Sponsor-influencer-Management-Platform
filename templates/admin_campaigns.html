@@ -1,0 +1,48 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    {% include 'navbar_admin.html' %}
+    <div class="container mt-4">
+        <h1 class="text-center mb-4">Campaign Management</h1>
+        
+        <div class="row">
+            {% for campaign in campaigns %}
+                <div class="col-md-4 mb-4">
+                    <div class="card border-light shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ campaign.name }}</h5>
+                            <p class="card-text"><strong>Sponsor:</strong> {{ campaign.sponsor_username }}</p>
+                            <p class="card-text"><strong>Category:</strong> {{ campaign.category }}</p>
+                            <p class="card-text"><strong>Budget:</strong> ₹{{ campaign.budget }}</p>
+                            <p class="card-text"><strong>Status:</strong> {{ campaign.status }}</p>
+                            <p class="card-text"><strong>Goal:</strong> {{ campaign.goal }}</p>
+                            <p class="card-text"><strong>Description:</strong> {{ campaign.des }}</p>
+                            <p class="card-text"><strong>Products:</strong> {{ campaign.products }}</p>
+                            <p class="card-text"><strong>Visibility:</strong> {{ campaign.visibility }}</p>
+                            <p class="card-text"><strong>Start Date:</strong> {{ campaign.s_date.strftime('%Y-%m-%d') }}</p>
+                            <p class="card-text"><strong>End Date:</strong> {{ campaign.e_date.strftime('%Y-%m-%d') }}</p>
+                            
+                            <div class="d-flex justify-content-between mt-4">
+                                <!-- Flag/Unflag Button -->
+                                <form method="POST" action="{{ url_for('admin_campaigns') }}" style="display:inline;">
+                                    <input type="hidden" name="campaign_id" value="{{ campaign.id }}">
+                                    <input type="hidden" name="action" value="toggle_flag">
+                                    <button type="submit" class="btn btn-{{ 'warning' if campaign.is_flagged else 'primary' }} btn-sm">
+                                        {{ 'Unflag' if campaign.is_flagged else 'Flag' }}
+                                    </button>
+                                </form>
+                                
+                                <!-- Delete Button -->
+                                <form method="POST" action="{{ url_for('admin_campaigns') }}" style="display:inline;">
+                                    <input type="hidden" name="campaign_id" value="{{ campaign.id }}">
+                                    <input type="hidden" name="action" value="delete">
+                                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

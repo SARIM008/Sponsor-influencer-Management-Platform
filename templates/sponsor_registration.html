@@ -1,0 +1,38 @@
+{% extends 'layout.html' %}
+
+{% block title %}Sponsor Registration{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="card mx-auto shadow-lg" style="max-width: 500px; border-radius: 10px;">
+        <div class="card-body">
+            <h2 class="card-title text-center mb-4">Sponsor Registration</h2>
+            <form action="/sponsor_registration.html" method="POST">
+                <div class="form-floating mb-3">
+                    <input type="text" id="name" name="name" class="form-control" placeholder="Name" required>
+                    <label for="name">Name</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="text" id="username" name="username" class="form-control" placeholder="Username" required>
+                    <label for="username">Username</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="number" id="budget" name="budget" class="form-control" placeholder="Budget" required>
+                    <label for="budget">Budget</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="text" id="industry" name="industry" class="form-control" placeholder="Industry" required>
+                    <label for="industry">Industry</label>
+                </div>
+                <div class="form-floating mb-4">
+                    <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
+                    <label for="password">Password</label>
+                </div>
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary btn-lg">Register</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

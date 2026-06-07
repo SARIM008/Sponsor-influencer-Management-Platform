@@ -1,0 +1,138 @@
+{% extends 'layout.html' %}
+
+{% block title %}Admin Users{% endblock %}
+
+{% block content %}
+    {% include 'navbar_admin.html' %}
+
+    <div class="container mt-4">
+        <h1 class="text-center mb-4">User Management</h1>
+        
+        <div class="row mb-4">
+            <div class="col-md-4">
+                <div class="card text-white bg-primary mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title">Total Users</h5>
+                        <p class="card-text">{{ total_users }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card text-white bg-success mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title">Total Influencers</h5>
+                        <p class="card-text">{{ total_influencers }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card text-white bg-info mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title">Total Sponsors</h5>
+                        <p class="card-text">{{ total_sponsors }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row">
+            {% for user in influencers + sponsors %}
+                <div class="col-md-6 mb-4">
+                    <div class="card border-secondary shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ user.username }}</h5>
+
+                            {% if request.args.get('edit') == user.username %}
+                                <form method="POST" action="{{ url_for('admin_users') }}">
+                                    <input type="hidden" name="username" value="{{ user.username }}">
+                                    <input type="hidden" name="action" value="edit">
+                                    
+                                    {% if user.__class__.__name__ == 'Influencer' %}
+                                        <div class="mb-3">
+                                            <label for="name" class="form-label">Name</label>
+                                            <input type="text" class="form-control" id="name" name="name" value="{{ user.name }}" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="platform" class="form-label">Platform</label>
+                                            <input type="text" class="form-control" id="platform" name="platform" value="{{ user.platform }}" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="follower" class="form-label">Reach</label>
+                                            <input type="number" class="form-control" id="follower" name="follower" value="{{ user.follower }}" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="niche" class="form-label">Niche</label>
+                                            <input type="text" class="form-control" id="niche" name="niche" value="{{ user.niche }}" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="earning" class="form-label">Earnings</label>
+                                            <input type="number" class="form-control" id="earning" name="earning" value="{{ user.earning }}" required>
+                                        </div>
+                                    {% else %}
+                                        <div class="mb-3">
+                                            <label for="company" class="form-label">Company</label>
+                                            <input type="text" class="form-control" id="company" name="company" value="{{ user.company }}" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="industry" class="form-label">Industry</label>
+                                            <input type="text" class="form-control" id="industry" name="industry" value="{{ user.industry }}" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="budget" class="form-label">Budget</label>
+                                            <input type="number" class="form-control" id="budget" name="budget" value="{{ user.budget }}" required>
+                                        </div>
+                                    {% endif %}
+                                    
+                                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                                    <a href="{{ url_for('admin_users') }}" class="btn btn-secondary">Cancel</a>
+                                </form>
+                            {% else %}
+                                {% if user.__class__.__name__ == 'Influencer' %}
+                                    <p class="card-text"><strong>Name:</strong> {{ user.name }}</p>
+                                    <p class="card-text"><strong>Platform:</strong> {{ user.platform }}</p>
+                                    <p class="card-text"><strong>Reach:</strong> {{ user.follower }}</p>
+                                    <p class="card-text"><strong>Niche:</strong> {{ user.niche }}</p>
+                                    <p class="card-text"><strong>Earnings:</strong> ₹{{ user.earning }}</p>
+                                    <p class="card-text"><strong>Allotted Campaigns:</strong></p>
+                                    <ul>
+                                        {% for campaign in user.campaigns %}
+                                            <li>{{ campaign.name }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                {% else %}
+                                    <p class="card-text"><strong>Company:</strong> {{ user.company }}</p>
+                                    <p class="card-text"><strong>Industry:</strong> {{ user.industry }}</p>
+                                    <p class="card-text"><strong>Budget:</strong> ₹{{ user.budget }}</p>
+                                    <p class="card-text"><strong>Started Campaigns:</strong></p>
+                                    <ul>
+                                        {% for campaign in user.campaigns %}
+                                            <li>{{ campaign.name }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                {% endif %}
+                                
+                                <div class="d-flex justify-content-between mt-3">
+                                    <a href="{{ url_for('admin_users', edit=user.username) }}" class="btn btn-warning">Edit</a>
+                                    
+                                    <form method="POST" action="{{ url_for('admin_users') }}" style="display:inline;">
+                                        <input type="hidden" name="username" value="{{ user.username }}">
+                                        <input type="hidden" name="action" value="toggle_flag">
+                                        <button type="submit" class="btn btn-{{ 'danger' if user.is_flagged else 'success' }}">
+                                            {{ 'Unflag' if user.is_flagged else 'Flag' }}
+                                        </button>
+                                    </form>
+
+                                    <form method="POST" action="{{ url_for('admin_users') }}" style="display:inline;">
+                                        <input type="hidden" name="username" value="{{ user.username }}">
+                                        <input type="hidden" name="action" value="delete">
+                                        <button type="submit" class="btn btn-danger">Delete</button>
+                                    </form>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

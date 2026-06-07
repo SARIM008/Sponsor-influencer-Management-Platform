@@ -1,0 +1,77 @@
+{% extends 'layout.html' %}
+
+{% block title %}Admin Dashboard{% endblock %}
+{%block content%}
+    {% include 'navbar_admin.html' %}
+    <div class="container mt-4">
+        <h1 class="text-center mb-4">Admin Dashboard</h1>
+
+        <div class="row">
+            <!-- Campaign Chart -->
+            <div class="col-md-6">
+                <h2>Campaign Status Overview</h2>
+                <canvas id="campaignChart"></canvas>
+            </div>
+
+            <!-- User Chart -->
+            <div class="col-md-6">
+                <h2>User Overview</h2>
+                <canvas id="userChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Log data to console for debugging
+        console.log({{campaign_labels|tojson}});
+        console.log({{ campaign_counts | tojson }});
+        console.log({{ user_labels | tojson }});
+        console.log({{ user_counts | tojson }});
+
+        // Campaign Chart
+        const campaignCtx = document.getElementById('campaignChart').getContext('2d');
+        const campaignChart = new Chart(campaignCtx, {
+            type: 'bar',
+            data: {
+                labels: {{ campaign_labels | tojson }},
+                datasets: [{
+                    label: 'Number of Campaigns',
+                    data: {{ campaign_counts | tojson }},
+                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        // User Chart
+        const userCtx = document.getElementById('userChart').getContext('2d');
+        const userChart = new Chart(userCtx, {
+            type: 'bar',
+            data: {
+                labels: {{ user_labels | tojson }},
+                datasets: [{
+                    label: 'Number of Users',
+                    data: {{ user_counts | tojson }},
+                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+{% endblock %}

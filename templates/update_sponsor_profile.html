@@ -1,0 +1,27 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Update Profile
+{% endblock %}
+
+{% block content %}
+{% include 'navbar_sponsor.html' %}
+    <div class="container mt-4">
+        <h1>Update Profile</h1>
+        <form action="{{ url_for('update_sponsor_profile') }}" method="POST">
+            <div class="mb-3">
+                <label for="name" class="form-label">Company Name</label>
+                <input type="text" id="name" name="name" class="form-control" value="{{ sponsor.company }}" required>
+            </div>
+            <div class="mb-3">
+                <label for="budget" class="form-label">Budget</label>
+                <input type="number" id="budget" name="budget" class="form-control" value="{{ sponsor.budget }}" required>
+            </div>
+            <div class="mb-3">
+                <label for="industry" class="form-label">Industry</label>
+                <input type="text" id="industry" name="industry" class="form-control" value="{{ sponsor.industry }}" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Update Profile</button>
+        </form>
+    </div>
+{% endblock %}

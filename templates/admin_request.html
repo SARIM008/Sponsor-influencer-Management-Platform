@@ -1,0 +1,43 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+Admin Requests
+{% endblock %}
+
+{% block content %}
+    {% include 'navbar_admin.html' %}
+<div class="container mt-4">
+    <h1 class="text-center mb-4">Admin Requests</h1>
+
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Influencer Username</th>
+                <th>Sponsor Username</th>
+                <th>Campaign</th>
+                <th>Request Type</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for request in requests %}
+            <tr>
+                <td>{{ request.id }}</td>
+                <td>{{ request.influencer_username }}</td>
+                <td>{{ request.sponsor_username }}</td>
+                <td>{{ request.campaign.name if request.campaign else 'N/A' }}</td>
+                <td>{{ request.request_type }}</td>
+                <td>{{ request.status }}</td>
+                <td>
+                    <form action="{{ url_for('delete_request2', request_id=request.id) }}" method="POST" style="display:inline-block;">
+                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

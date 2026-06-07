@@ -1,0 +1,64 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Sponsor Dashboard
+{% endblock %}
+
+{% block styles %}
+    <style>
+        .navbar-custom {
+            background-color: hsl(177, 100%, 50%); 
+        }
+        .navbar-custom .navbar-brand,
+        .navbar-custom .nav-link {
+            color: #fff;
+        }
+        .navbar-custom .nav-link.active {
+            background-color: #2ab300;
+            border-radius: 5px;
+        }
+        .navbar-custom .nav-link:hover {
+            background-color: hsl(311, 100%, 35%);
+            border-radius: 5px;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+<nav class="navbar navbar-expand-lg navbar-custom">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{{ url_for('sponsor_dashboard') }}">Sponsor Dashboard</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('update_sponsor_profile') }}">Update Profile</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('campaign_details') }}">My Campaigns</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('search_influencer') }}">Search Influencers</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('campaigns') }}">Create Campaign</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('manage_requests') }}">Request</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('logout') }}">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Your content goes here -->
+{% endblock %}
+
+{% block scripts %}
+    <!-- Add any additional scripts here if needed -->
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends 'layout.html' %}
+
+{% block title %}Update Profile{% endblock %}
+
+{% block content %}
+{%include "navbar_influencer.html"%}
+<div style="padding: 20px;">
+    <h1 style="text-align: center; color: #333;">Update Profile</h1>
+
+    <form method="POST" action="{{ url_for('inf_update_profile') }}">
+        <div style="margin-bottom: 15px;">
+            <label for="name" style="display: block; font-weight: bold;">Name:</label>
+            <input type="text" id="name" name="name" value="{{ influencer.name }}" required style="width: 100%; padding: 8px; box-sizing: border-box;">
+        </div>
+        <div style="margin-bottom: 15px;">
+            <label for="platform" style="display: block; font-weight: bold;">Platform:</label>
+            <input type="text" id="platform" name="platform" value="{{ influencer.platform }}" required style="width: 100%; padding: 8px; box-sizing: border-box;">
+        </div>
+        <div style="margin-bottom: 15px;">
+            <label for="handle" style="display: block; font-weight: bold;">Handle:</label>
+            <input type="text" id="handle" name="handle" value="{{ influencer.handle }}" required style="width: 100%; padding: 8px; box-sizing: border-box;">
+        </div>
+        <div style="margin-bottom: 15px;">
+            <label for="follower" style="display: block; font-weight: bold;">Reach:</label>
+            <input type="number" id="follower" name="follower" value="{{ influencer.follower }}" required style="width: 100%; padding: 8px; box-sizing: border-box;">
+        </div>
+        <div style="margin-bottom: 15px;">
+            <label for="niche" style="display: block; font-weight: bold;">Niche:</label>
+            <input type="text" id="niche" name="niche" value="{{ influencer.niche }}" required style="width: 100%; padding: 8px; box-sizing: border-box;">
+        </div>
+        <button type="submit" style="
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        ">Update Profile</button>
+    </form>
+</div>
+{% endblock %}

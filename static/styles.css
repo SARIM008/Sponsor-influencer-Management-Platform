@@ -1,0 +1,74 @@
+/* Custom CSS for Navbar */
+.navbar-custom {
+    background-color: #343a40;
+}
+
+.navbar-custom .navbar-brand,
+.navbar-custom .nav-link {
+    color: #f8f9fa;
+    transition: color 0.3s ease;
+}
+
+.navbar-custom .nav-link:hover {
+    color: #ffc107;
+}
+
+.navbar-custom .navbar-toggler-icon {
+    background-image: url('data:image/svg+xml;charset=utf8,%3Csvg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30"%3E%3Cpath stroke="currentColor" stroke-width="2" d="M5 7h20M5 15h20M5 23h20" fill="none" stroke-linecap="round" stroke-linejoin="round" /%3E%3C/svg%3E');
+}
+
+.navbar-custom .navbar-nav .nav-item .nav-link.active {
+    font-weight: bold;
+    color: #ffc107;
+}
+
+.navbar-custom .btn-outline-light {
+    border-color: #f8f9fa;
+    color: #f8f9fa;
+}
+
+.navbar-custom .btn-outline-light:hover {
+    background-color: #f8f9fa;
+    color: #343a40;
+}
+
+/* Custom CSS for Manage Requests Page */
+.card-custom {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 15px;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.card-custom:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.card-custom h5 {
+    color: #007bff;
+}
+
+.card-custom .btn {
+    margin-right: 5px;
+}
+.card {
+    border-radius: 10px;
+}
+
+.card-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+
+.card-text {
+    font-size: 1rem;
+}
+
+.alert-info {
+    border-radius: 5px;
+    padding: 15px;
+}
