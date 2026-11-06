@@ -12,8 +12,18 @@ A web app where sponsors run advertising campaigns and influencers find and join
   - Sponsors search influencers by name or niche and send them requests for a campaign.
   - Influencers browse active public campaigns and request to join.
   - The receiving side accepts or rejects; pending requests can be edited or withdrawn.
-  - When a campaign is completed, its budget is added to the influencer's earnings.
+  - When a request is accepted, the campaign is marked as allotted and its budget is added to the influencer's earnings; the influencer can later mark it as completed.
 - **Admin moderation:** an overview of campaigns by status and flagged/unflagged counts; admins can edit, delete, flag or unflag users, and delete, flag or unflag campaigns. Flagged items are hidden, and flagged users cannot log in.
+
+## Screenshots
+
+*Captured from a local run with demo data.*
+
+| Sponsor: my campaigns | Sponsor: search influencers |
+|---|---|
+| ![Sponsor campaigns](screenshots/sponsor-my-campaigns.png) | ![Search influencers](screenshots/sponsor-search-influencers.png) |
+| **Influencer dashboard** | **Admin dashboard** |
+| ![Influencer dashboard](screenshots/influencer-dashboard.png) | ![Admin dashboard](screenshots/admin-dashboard.png) |
 
 ## My role
 
